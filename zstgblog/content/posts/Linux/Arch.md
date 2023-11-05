@@ -1,5 +1,5 @@
 +++
-title = "Arch"
+title = "Installing Arch the fun way"
 date = "2023-11-05T21:33:18+05:30"
 author = "ZeStig"
 authorTwitter = "" #do not include @
