@@ -2,6 +2,8 @@
 title: "Setup a simple blog using GitHub Pages and Hugo"
 date: 2023-11-05T21:22:25+05:30
 author: ZeStig
+tags : ["Git", "Hugo"]
+keywords : ["Blog", "GitHub Pages"]
 ---
 
 Blogs are a great way to share your thoughts, ideas, and experiences with the world. They can be used for personal or professional purposes, and there are blogs on just about every topic imaginable.
