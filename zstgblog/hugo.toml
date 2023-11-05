@@ -1,0 +1,9 @@
+baseURL = 'https://zstg.github.io/'
+languageCode = 'en-us'
+title = "Stig's blog"
+theme = "terminal"
+[params]
+  themeColor = "blue"
+  fullWidthTheme = true
+  centerTheme = true
+

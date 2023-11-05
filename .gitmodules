@@ -1,0 +1,4 @@
+[submodule "zstgblog/public"]
+	path = zstgblog/public
+	url = https://github.com/zstg/zstg.github.io.git
+	branch = main
