@@ -72,6 +72,13 @@ git commit -am "Add commit message here"
 git push
 #+end_src
 
+# To build the website
+#+begin_src bash
+# in zstgblog
+hugo -t terminal
+cd public
+# add, commit, push to main
+#+end_src
 
 ***** References
 [1]: [[https://www.youtube.com/watch?v=LIFvgrRxdt4][Ref 1]]
