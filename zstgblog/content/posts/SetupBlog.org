@@ -63,7 +63,7 @@ Edit ~content/posts/nameOfFile.md~ and add a /brief/ intro to your post.
 Next, make the GitHub Page repo (https://github.com/username/username.github.io) a ~Git submodule~ of the current repo. This is done to ensure that this repo can be used for GitHub Pages.
 #+begin_src bash
 # Ensure that you're in the zstgblog directory
-git submodule add -b main https://github.com/zstg/zstg.github.io.git public
+git submodule add https://github.com/zstg/zstg.github.io.git public
 #+end_src
 
 We can now deploy this repo to GitHub and it will automatically be converted to a proper GitHub page powered by Hugo.
