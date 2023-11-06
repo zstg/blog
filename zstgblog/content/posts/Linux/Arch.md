@@ -5,15 +5,14 @@ authorTwitter = "" #do not include @
 cover = ""
 tags = ["Arch", "Linux"]
 keywords = ["Linux", "Arch"]
-description = ""
+description = "In this blog post, we check out the installation of Archlinux, a distro notoriously hard to install."
 showFullContent = false
 readingTime = false
 hideComments = false
 color = "" #color from the theme settings
 +++
 
-# Arch Linux Installation Guide
-Installing Arch is not hard at all, it's quite simple to do. Arch has long been known as a power users distro, and Arch users are usually elitists. Today, we'll break that notion! 
+Installing Arch is not hard at all, it's quite simple to do. Arch has long been known as a power-users' distro, and Arch users are usually elitists. Today, we'll break that notion! 
 
 Let's learn how to install Arch manually!
 
@@ -147,6 +146,11 @@ Uncomment the following line in the `/etc/sudoers` file:
 
 ## Step 12: Install Bootloader
 
+|      | Systemd-boot   | GRUB |
+| --   |  --            | --   |
+| BIOS | N              | Y    |
+| UEFI | Y              | Y    | 
+
 Install the bootloader:
 
 ```bash
@@ -167,29 +171,36 @@ grub-mkconfig -o /boot/grub/grub.cfg
 Get a networking daemon set up:
 `pacman -S networkmanager --noc && systemctl enable NetworkManager`
 
-`exit` # leave the arch-chroot, work's done now.
-Finally unmount the live USB:
-`umount -l /mnt && exit`
-Shut down the VM:
-`shutdown now`
+Leave the arch-chroot; installation's almost over.
+
+`exit`
+
+Finally unmount the live USB: `umount -l /mnt && exit`
+
+Shut down the VM: `shutdown now`
 
 The virtual machine has been shut down , eject the ISO file (remove the USB if you're performing the installation on bare metal).
-Next time you boot the VM, login into the tty using the user and passwd.
+When the VM has finished booting up once more, login into the tty by typing your username and password.
 
-Install video drivers (*if* they haven't been installed):
+Next, we're going to install video drivers (*if* they haven't been installed):
+
 `sudo pacman -S --needed xf86-video-fbdev xorg xorg-xinit --noc`
+
 Now we install a desktop.
-Choose which DE you need , from https://wiki.archlinux.org/title/Desktop_environment 
+
+Choose which DE you need from [this link](https://wiki.archlinux.org/title/Desktop_environment).
+
+<!--
 ```
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 echo "exec /usr/bin/<DE>-session" >> ~/.xinitrc
 sudo reboot
 startx # to start the display server
 ```
- If you want a display manager such as SDDM, you can set it up as well:
-
+-->
+ If you want a [display manager](https://wiki.archlinux.org/title/Display_manager) such as [SDDM](https://github.com/sddm/sddm), you can set it up as well:
 ```
 sudo pacman -S sddm --noconfirm
-sudo systemctl enable sddm
-reboot
+sudo systemctl enable sddm # will autostart the service from next boot onwards
 ```
+Now that the Arch install **has _finished_**, simply reboot your system using the `reboot` command.

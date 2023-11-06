@@ -1,12 +1,11 @@
 +++
-title = "Install nixOS using the minimal iso"
-date = "2023-11-06T15:49:06+05:30"
+title = "Install nixOS using the minimal ISO"
 author = "ZeStig"
 authorTwitter = "" #do not include @
 cover = ""
 tags = ["Linux", "nixOS"]
 keywords = ["", ""]
-description = ""
+description = "In this blog post, we're speedrunning through an installation of NixOS using the minimal ISO (which does not come with a GUI)."
 showFullContent = false
 readingTime = false
 hideComments = false
