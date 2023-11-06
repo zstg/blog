@@ -74,12 +74,15 @@ git commit -am "Add commit message here"
 git push
 #+end_src
 
-# To build the website
+# To forcefully rebuild the website
 #+begin_src bash
 # in zstgblog
-hugo -t terminal
-cd public
-# add, commit, push to main
+git rm -r --cached public
+git add .
+git commit -am "Force rebuild"
+git push
+hugo 
+
 #+end_src
 
 ***** References
