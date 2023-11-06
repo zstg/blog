@@ -2,3 +2,6 @@
 	path = zstgblog/public
 	url = https://github.com/zstg/zstg.github.io
 	branch = main
+[submodule "zstgblog/themes/terminal"]
+	path = zstgblog/themes/terminal
+	url = https://github.com/panr/hugo-theme-terminal
