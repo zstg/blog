@@ -78,11 +78,11 @@ git push
 #+begin_src bash
 # in zstgblog
 git rm -r --cached public
+hugo 
 git add .
 git add public
 git commit -am "Force rebuild"
 git push
-hugo 
 
 #+end_src
 
