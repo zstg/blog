@@ -38,7 +38,8 @@ cd zstgblog/
 I like [[https://github.com/panr/hugo-theme-terminal][this]] particular Hugo theme, so I'm fetching it too...
 #+begin_src bash
 # Note that I'm still inside the zstgblog directory.
-git clone --depth 1 https://github.com/panr/hugo-theme-terminal themes/terminal
+git rm -r --cached themes/terminal
+git submodule add https://github.com/panr/hugo-theme-terminal themes/terminal
 #+end_src
 
 Next, add/modify =zstgblog/hugo.toml= like so: (obviously, replace with the name you'd provided earlier, and modify the details below to your liking)
