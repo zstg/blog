@@ -1,5 +1,5 @@
 +++
-title = "Install nixOS using the minimal ISO"
+title = "Install NixOS using the minimal ISO"
 author = "ZeStig"
 authorTwitter = "" #do not include @
 cover = ""
@@ -100,7 +100,7 @@ Let's format those partitions you just created with the appropriate file systems
    
    *My* partitioning layout can be achieved using:
 
-   ```
+   ```bash
    parted /dev/sda -- mklabel gpt
    parted /dev/sdb -- mklabel gpt
 
@@ -120,7 +120,7 @@ Let's format those partitions you just created with the appropriate file systems
 ##### Mount the partitions: 
 Now, create mount points and mount the partitions to the desired locations. For instance, if you want to mount the root partition to `/mnt`, use this command:
 
-   ```
+   ```bash
    mkdir -p /mnt/boot
    mount /dev/disk/by-label/nixos /mnt
    mount /dev/disk/by-label/boot /mnt/boot
@@ -143,9 +143,11 @@ To generate the initial NixOS configuration, run the following command:
 Open up your favorite text editor and customize the configuration file at `/mnt/etc/nixos/configuration.nix` to your heart's content. This file allows you to specify partitions, file systems, boot options, network configuration, and other system settings. Make it your playground!
 
 ##### Install NixOS: 
-After you're done tweaking the configuration file, save the changes and run the following command to install NixOS:
-    
-    `nixos-install`    
+After you're done tweaking the configuration file, save the changes and run the following command to install NixOS: 
+
+
+`nixos-install`    
+
 
 This will install NixOS using the configuration file you provided. It's like waving a magic wand!
 
@@ -177,7 +179,7 @@ NixOS offers a highly reproducible system. The declarative nature of its configu
 
  Note that you must symlink the config files to their required places (else the files wouldn't be read). This can be done easily:  (assuming you've cloned this to your home directory)
 
-```
+```bash
  sudo ln -sf ~/nixos-config/configuration.nix /etc/nixos/ # if you want my config
  mkdir -p ~/.config/home-manager/
  ln -sf ~/nixos-config/home.nix ~/.config/home-manager/
