@@ -79,13 +79,16 @@ git push
 # To forcefully rebuild the website
 #+begin_src bash
 # in zstgblog
-git rm -r --cached public
+# git rm -r --cached public
 hugo 
+cd public
 git add .
-git add public
-git commit -am "Force rebuild"
+git commit -am "Add new content"
 git push
-
+cd ..
+git add .
+git commit -am "Rebuilt website"
+git push
 #+end_src
 
 ***** References
