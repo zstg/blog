@@ -64,8 +64,7 @@ Mount the partitions to your filesystem:
 
 ```bash
 mount /dev/sda2 /mnt
-mkdir -p /mnt/boot/EFI
-mount /dev/sda1 /mnt/boot/EFI
+mount --mkdir /dev/sda1 /mnt/boot
 ```
 
 ## Step 7: Install Base Arch Stuff
@@ -73,7 +72,7 @@ mount /dev/sda1 /mnt/boot/EFI
 Install the base Arch stuff onto your install. This process can take ≈ 10-15 min depending on your internet connection:
 
 ```bash
-pacstrap /mnt base linux linux-firmware
+pacstrap /mnt base linux linux-firmware # linux-firmware is optional inside a VM...
 ```
 
 ## Step 8: Set Hostname
@@ -123,7 +122,7 @@ useradd -m stig && passwd stig:
 Add the user to the necessary groups:
 
 ```bash
-usermod -aG wheel,audio,video,optical,storage stig
+usermod -aG wheel,input,audio,video,optical,storage stig
 ```
 
 Install sudo and nano:
@@ -158,18 +157,39 @@ pacman -S grub efibootmgr os-prober
 ```
 
 Note that os-prober is optional, but can be useful to troubleshoot dual-boot systems. You need not install it inside a VM, or when you're not dual-booting.
-Then install the bootloader to the right place:
+
+Then install the bootloader to the right place - you can choose between Grub and Systemd-boot.
+> ### Grub 
 ```bash
-mkdir /mnt/boot/EFI 
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck 
+ mkdir /boot/EFI 
+ grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck 
 ```
 
 Now we need to generate a grub config file.
 ```bash
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
+> ### Systemd-boot
+```bash
+bootctl install
+```
+Open `/etc/fstab` and note the *UUID* of the partition mounted at `/` (`root` or `/dev/sda2` in this case).
+
+Now create `/boot/loader/entries/arch.conf` with the following content:
+```
+title Arch Linux
+linux /vmlinuz-linux
+initrd /intel-ucode.img 
+initrd /initramfs-linux.amg
+options root=<UUID obtained above> rw
+```
+NOTE: *Replace with* `amd-ucode.img` *if you have an AMD processor*.
+
 Get a networking daemon set up:
-`pacman -S networkmanager --noc && systemctl enable NetworkManager`
+```bash 
+pacman -S networkmanager --noconfirm
+systemctl enable NetworkManager
+```
 
 Leave the arch-chroot; installation's almost over.
 
@@ -181,10 +201,6 @@ Shut down the VM: `shutdown now`
 
 The virtual machine has been shut down , eject the ISO file (remove the USB if you're performing the installation on bare metal).
 When the VM has finished booting up once more, login into the tty by typing your username and password.
-
-Next, we're going to install video drivers (*if* they haven't been installed):
-
-`sudo pacman -S --needed xf86-video-fbdev xorg xorg-xinit --noc`
 
 Now we install a desktop.
 
