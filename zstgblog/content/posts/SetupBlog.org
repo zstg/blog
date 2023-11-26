@@ -20,7 +20,7 @@ sudo pacman -S hugo git
 #+end_src
 
 * Repo creation
-The next step involves creating public repos on GitHub. I'll be creating 2 repos, one for [[https://github.com/zstg/zstg.github.io][GitHub Pages deployment]] and the other for storing [[https://github.com/zstg/blog][the blog itself]]. For beginners, I recommend creating these repos from the web interface rather than the commandline, but feel free to do it in any way you please.
+The next step involves creating public repos on GitHub. I'll be creating 2 repos, a *non-empty* repo for [[https://github.com/zstg/zstg.github.io][GitHub Pages deployment]] and the other for storing [[https://github.com/zstg/blog][the blog itself]]. For beginners, I recommend creating these repos from the web interface rather than the commandline, but feel free to do it in any way you please.
 
 After the repos are created, clone them to your local machine:
 
@@ -73,14 +73,7 @@ git submodule add https://github.com/zstg/zstg.github.io.git public
 #+end_src
 
 We can now deploy this repo to GitHub and it will automatically be converted to a proper GitHub page powered by Hugo.
-#+begin_src bash
-# in zstgblog directory
-git add .
-git commit -am "Add commit message here"
-git push
-#+end_src
 
-# To forcefully rebuild the website
 #+begin_src bash
 # in zstgblog
 # git rm -r --cached public

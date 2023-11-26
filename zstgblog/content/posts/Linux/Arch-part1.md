@@ -64,7 +64,8 @@ Mount the partitions to your filesystem:
 
 ```bash
 mount /dev/sda2 /mnt
-mount --mkdir /dev/sda1 /mnt/boot
+mount --mkdir /dev/sda1 /mnt/boot # if you've using BIOS
+mount --mkdir /dev/sda1 /mnt/boot/efi # if you're using UEFI
 ```
 
 ## Step 7: Install Base Arch Stuff
@@ -73,6 +74,8 @@ Install the base Arch stuff onto your install. This process can take ≈ 10-15 m
 
 ```bash
 pacstrap /mnt base linux linux-firmware # linux-firmware is optional inside a VM...
+# IF YOU'RE ON A NON-SOYSTEMD DISTRO SUCH AS ARTIX
+basestrap /mnt base linux # linux-firmware is optional INSIDE A VM
 ```
 
 ## Step 8: Set Hostname
@@ -81,8 +84,9 @@ Add a hostname to your VM:
 
 ```bash
 genfstab -L /mnt >> /mnt/etc/fstab # use labels to identify em
+# fstabgen  -L /mnt >> /mnt/etc/fstab # on Artix
 modprobe efivarfs
-arch-chroot /mnt
+arch-chroot /mnt # artix-chroot /mnt bash 
 ```
 
 Choose a proper timezone and set the hostname:
@@ -113,10 +117,10 @@ passwd
 
 ## Step 11: Add User
 
-Add a user and set a password for it:
+Add a user and set a password for the user:
 
 ```bash
-useradd -m stig && passwd stig:
+useradd -m stig && passwd stig
 ```
 
 Add the user to the necessary groups:
@@ -161,8 +165,7 @@ Note that os-prober is optional, but can be useful to troubleshoot dual-boot sys
 Then install the bootloader to the right place - you can choose between Grub and Systemd-boot.
 > ### Grub 
 ```bash
- mkdir /boot/EFI 
- grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck 
+ grub-install # --target=x86_64-efi --bootloader-id=grub_uefi --recheck 
 ```
 
 Now we need to generate a grub config file.
@@ -185,10 +188,12 @@ options root=<UUID obtained above> rw
 ```
 NOTE: *Replace with* `amd-ucode.img` *if you have an AMD processor*.
 
+## Step 13: Finish the install
 Get a networking daemon set up:
 ```bash 
 pacman -S networkmanager --noconfirm
 systemctl enable NetworkManager
+# Replace accordingly if you're running a non-soystemd distro
 ```
 
 Leave the arch-chroot; installation's almost over.
@@ -215,8 +220,10 @@ startx # to start the display server
 ```
 -->
  If you want a [display manager](https://wiki.archlinux.org/title/Display_manager) such as [SDDM](https://github.com/sddm/sddm), you can set it up as well:
-```
+
+```bash 
 sudo pacman -S sddm --noconfirm
 sudo systemctl enable sddm # will autostart the service from next boot onwards
+# Replace accordingly if you're running a non-soystemd distro
 ```
 Now that the Arch install **has _finished_**, simply reboot your system using the `reboot` command.
