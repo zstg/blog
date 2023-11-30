@@ -97,6 +97,12 @@ hwclock --systohc
 echo Arch-VM > /etc/hostname # replace with a hostname of your choice, preferably no spaces
 ```
 
+Install sudo and nano:
+
+```bash
+pacman -S sudo nano --noconfirm
+```
+
 ## Step 9: Configure /etc/hosts
 
 Edit the `/etc/hosts` file and add the following:
@@ -129,11 +135,6 @@ Add the user to the necessary groups:
 usermod -aG wheel,input,audio,video,optical,storage stig
 ```
 
-Install sudo and nano:
-
-```bash
-pacman -S sudo nano --noconfirm
-```
 
 Add the user to the wheel group in the `/etc/sudoers` file:
 
