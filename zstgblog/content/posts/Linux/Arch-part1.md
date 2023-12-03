@@ -73,9 +73,9 @@ mount --mkdir /dev/sda1 /mnt/boot/efi # if you're using UEFI
 Install the base Arch stuff onto your install. This process can take ≈ 10-15 min depending on your internet connection:
 
 ```bash
-pacstrap /mnt base linux linux-firmware # linux-firmware is optional inside a VM...
+pacstrap /mnt base-devel linux linux-firmware # linux-firmware is optional inside a VM...
 # IF YOU'RE ON A NON-SOYSTEMD DISTRO SUCH AS ARTIX
-basestrap /mnt base linux # linux-firmware is optional INSIDE A VM
+basestrap /mnt base-devel linux # linux-firmware is optional INSIDE A VM
 ```
 
 ## Step 8: Set Hostname
@@ -97,10 +97,10 @@ hwclock --systohc
 echo Arch-VM > /etc/hostname # replace with a hostname of your choice, preferably no spaces
 ```
 
-Install sudo and nano:
+Install the nano text editor:
 
 ```bash
-pacman -S sudo nano --noconfirm
+pacman -S  nano --noconfirm
 ```
 
 ## Step 9: Configure /etc/hosts
@@ -123,18 +123,11 @@ passwd
 
 ## Step 11: Add User
 
-Add a user and set a password for the user:
+Add a user (add them to required groups) and set a password for the user:
 
 ```bash
-useradd -m stig && passwd stig
+useradd -m stig -G wheel,input,audio,video,optical,storage && passwd stig
 ```
-
-Add the user to the necessary groups:
-
-```bash
-usermod -aG wheel,input,audio,video,optical,storage stig
-```
-
 
 Add the user to the wheel group in the `/etc/sudoers` file:
 
