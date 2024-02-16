@@ -33,11 +33,11 @@ timedatectl set-ntp true
 ```
 
 ## Step 4: Partition the Virtual Hard Drive
-
+This step requires `parted`, so install it if it isn't available in the live environment: `sudo pacman -S parted`.
 Partition your virtual hard drive using the following commands:
 
 ```bash
-parted /dev/sda -- mklabel gpt # THIS WILL WIPE YOUR DEVICE, don't do this if you're dual-booting
+parted /dev/sda -- mklabel gpt # THIS WILL WIPE YOUR DEVICE, don't do this if you're dual-booting!
 parted /dev/sda -- mkpart ESP fat32 1MB 512MB # 512 MB bootloader
 parted /dev/sda -- mkpart primary ext4 512MB 100% # rem space for the root filesystem
 parted /dev/sda -- set 1 esp on # make the partition bootable
@@ -75,7 +75,7 @@ Install the base Arch stuff onto your install. This process can take ≈ 10-15 m
 ```bash
 pacstrap /mnt base-devel linux linux-firmware # linux-firmware is optional inside a VM...
 # IF YOU'RE ON A NON-SOYSTEMD DISTRO SUCH AS ARTIX
-basestrap /mnt base-devel linux # linux-firmware is optional INSIDE A VM
+basestrap /mnt base-devel linux elogind-openrc
 ```
 
 ## Step 8: Set Hostname
