@@ -4,7 +4,7 @@ paginatePath = "page"
 showMenuItems = 0
 theme = "terminal"
 [params]
-  themeColor = "blue"
+  themeColor = "onedark-blue"
   # fullWidthTheme = true
   centerTheme = true
   
