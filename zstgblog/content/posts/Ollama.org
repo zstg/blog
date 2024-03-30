@@ -1,6 +1,13 @@
 ---
-title: "Ollama"
+title: "How to run LLMs locally using Ollama"
 date: 2024-03-27T17:04:20+05:30
-draft: true
+author: ZeStig
+tags : ["Docker", "LLM", "ML", "ChatGPT", "Ollama"]
 ---
+
+Why use ChatGPT when you can run LLMs locally?
+
+#+BEGIN_
+This post has /not/ been written using Ollama.
+#+END_VERSE
 

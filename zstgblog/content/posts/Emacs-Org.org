@@ -6,12 +6,13 @@ author: ZeStig
 tags : ["Jupyter", "Emacs", "Org-mode", "LaTeX"]
 description : "How to configure Latex, Jupyter and Org mode in Emacs"
 ---
+#+STARTUP: inlineimages
 
 Why use Jupyter notebooks when you can connect to a kernel directly from within Org mode in Emacs?
 
 
 * Configure ~texlive~
-I'm on Arch (BTW), and i don't like the ~texlive-basic~, ~texlive-full~ and ~texlive-bin~ packages that are present in the Arch repos. So I'll be setting up a local Texlive installation in this section.
+I'm on Arch /BTW/, and i don't like the ~texlive-basic~, ~texlive-full~ and ~texlive-bin~ packages that are present in the Arch repos. So I'll be setting up a local Texlive installation in this section. I've symlinked (to =/usr/local/bin=) some binaries that Emacs requires. /I/ didn't add the entire installation folder to =PATH= because it adds a lot of executables to my ~fish~ autosuggestions.
 #+BEGIN_SRC fish
 mkdir - p ~/.Texlive
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
@@ -23,7 +24,7 @@ sudo ln -sf ~/.Texlive/bin/x86_64-linux/pdflatex /usr/local/bin
 #+END_SRC
 
 * Org mode settings
-Org-mode does need some configuration to accomodate LaTeX previews. Note that the steps below will be applicable only to the /graphical/ version of Emacs.
+Org-mode +does need+ could do with some configuration to accomodate LaTeX previews. Note that the steps below will be applicable only to the /graphical/ version of Emacs.
 #+BEGIN_SRC emacs-lisp
 (setq org-src-preserve-indentation nil
       org-export-wth-toc nil
@@ -53,15 +54,15 @@ Org-mode does need some configuration to accomodate LaTeX previews. Note that th
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (C . t)
-   (python . t)
-   (css . t)
-   (jupyter . t)
+   ;; (C . t)
+   ;; (python . t)
+   ;; (css . t)
+   ;; (jupyter . t)
    (shell . t)))
 #+END_SRC
 
 
-This makes it convenient for us to use ~Jupyter~ src blocks within Emacs. Note that =emacs-jupyter= needs to be set up for this:
+This makes it convenient to use ~Jupyter~ src blocks within Emacs. Note that =emacs-jupyter= needs to be set up for this. I've also set a custom size for the LaTeX (and image, e.g plot) previews here.
 #+BEGIN_SRC emacs-lisp
 (use-package jupyter
   :config
@@ -71,7 +72,7 @@ This makes it convenient for us to use ~Jupyter~ src blocks within Emacs. Note t
 #+END_SRC
 
 * Org mode LaTeX configuration
-=Org-fragtog= is a package that brings _on-hover_ LaTeX preview functionality to Emacs. This /requires/ a local LaTeX environment such as the one I'm using.
+=Org-fragtog= is a package that brings _on-hover_ LaTeX preview functionality to Emacs. This /requires/ a local LaTeX environment such as the one I'm using. The configuration below loads LaTeX previews when a file is opened. 
 #+BEGIN_SRC emacs-lisp
 (use-package latex-preview-pane)
 (use-package org-fragtog
@@ -103,15 +104,22 @@ I'm using =Anaconda= for ML work, and so I've configured Emacs to auto-load my ~
 #+END_SRC
 
 
-
-* PDF org-export previews
-Handle viewing and annotating pdf's.
+* PDF Org-export previews
 [[https://github.com/vedang/pdf-tools][pdf-tools]] is a replacement of DocView for viewing PDF files inside Emacs.  It uses the =poppler= library, which also means that 'pdf-tools' /can/ be used to modify PDFs.
-This requires the ~poppler~ library, and so it must be installed (in my case, using ~pacman)~.
+This requires the ~poppler~ library, and so it must be installed (in my case, using ~pacman~). This also brings PDF editing abilities to Emacs - which I /guess/ isn't available in DocView mode. This uses ~epdfinfo~ under the hood and renders PDFs quite well. I'm pleased enough to make this my system-wide PDF editor.
 #+BEGIN_SRC emacs-lisp
 (use-package pdf-tools
   :init (pdf-loader-install)
   :config (add-to-list 'revert-without-query ".pdf")
   :hook (pdf-view-mode-hook  . (lambda () (interactive) (display-line-numbers-mode -1))))
 #+END_SRC
+
+
+* Conclusion
+Whoops, did i forget images? Here ya go:
+
+[[/emacs-org/Jupyter.png]]
+
+[[/emacs-org/latex-preview.png]]
+Ok then, I'll be back with some Emacs content in the near future. Stay tuned!
 
