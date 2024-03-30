@@ -3,13 +3,10 @@ title: "How to run LLMs locally using Ollama"
 date: 2024-03-27T17:04:20+05:30
 author: ZeStig
 tags : ["Docker", "LLM", "ML", "ChatGPT", "Ollama"]
+description: "Running Large Language Models made simple using Ollama"
 ---
 
-Why use ChatGPT when you can run LLMs locally?
-
-#+BEGIN_VERSE
-This post has *definitely* /not/ been written using Ollama.
-#+END_VERSE
+PS: This post has *definitely* /not/ been written using Ollama.
 
 * What's Ollama?
 Ollama provides an easy way to manage LLMs. It's a /command-line/ app that lets you run large language models right on your computer. It's built on top of ~llama.cpp~, a C++ library that makes it easy to run models on CPUs or GPUs.
@@ -21,14 +18,14 @@ Simple. Just run this in the terminal if you're on GNU+Linux or macOS.
 #+BEGIN_SRC bash
 curl -fsSL https://ollama.com/install.sh | sh
 #+END_SRC
-If you're on Windows, download the executable from [[https://ollama.com/download/OllamaSetup.exe][the website]] an run the setup file. This will setup an _Ollama_ service (on all of the above operating systems).
+If you're on Windows, download the executable from [[https://ollama.com/download/OllamaSetup.exe][the website]] and run the setup file. This will setup an _Ollama_ service (on all of the above operating systems).
 
 To pull your first model,
 #+BEGIN_SRC bash
 ollama run neural-chat 
 #+END_SRC
 
-I've used [[https://huggingface.co/Intel/neural-chat-7b-v3][Neural-chat]] for example purposes, but [[https://ollama.com/models][other models]] such as ~LLaMa2~ are also available. Some models, such as [[https://ollama.com/library/llava][LLaVA]] even have /visual understanding/ capabilities such as identifying details in images.
+I've used [[https://huggingface.co/Intel/neural-chat-7b-v3][Neural-chat]] for example purposes, but [[https://ollama.com/models][other models]] such as ~LLaMa2~ are also available. Some models, such as [[https://ollama.com/library/llava][LLaVA]], even have /visual understanding/ capabilities such as identifying details in images.
 * Ugh, this is a pain to use. Is there a better way?
 Of course! Running LLMs this way in a terminal is boring! One can use [[https://github.com/open-webui/open-webui][Open WebUI]] for this. I'll be running it via [[https://podman.io/][Podman]];  Docker can also be used to achieve this.
 #+BEGIN_SRC bash
@@ -55,4 +52,4 @@ docker run --rm -p 3000:8080 \
 Now open a browser and start configuring Open-WebUI!
 [[https://docs.openwebui.com/assets/images/demo-6793d95448aa180bca8dafbd21aa91b5.gif][Here]]'s a demo on how to use Open-WebUI.
 * Fin
-Pick and choose the model of your choice. The more parameters a model has been trained on (e.g 3B,7B,13B) etc, the more resource-intensive it will be. On my /potato/ laptop (that doesn't have a dGPU) these models stress my CPU and consume a whole lot of memory. But I guess that's fine since these run locally. Thanks for reading!
+Pick and choose the model of your choice. The more parameters a model has been trained on (e.g 3B,7B,13B) etc, the more resource-intensive it will be. On my /potato/ laptop (which lacks have a dGPU) running these models places a strain on my CPU and can consume a /ton/ of memory. But I guess that's fine. These models don't send telemetry data anywhere. Thanks for reading!
