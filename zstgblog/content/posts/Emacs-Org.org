@@ -12,7 +12,7 @@ Why use Jupyter notebooks when you can connect to a kernel directly from within 
 
 * Configure ~texlive~
 I'm on Arch /BTW/, and i don't like the ~texlive-basic~, ~texlive-full~ and ~texlive-bin~ packages that are present in the Arch repos. So I'll be setting up a local Texlive installation in this section. I've symlinked (to =/usr/local/bin=) some binaries that Emacs requires. /I/ didn't add the entire installation folder to =PATH= because it adds a lot of executables to my ~fish~ autosuggestions.
-#+BEGIN_SRC fish
+#+BEGIN_SRC bash
 mkdir - p ~/.Texlive
 wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 unzip install-tl-unx.tar.gz # note that unzip can be installed using `pacman -S unzip
@@ -37,13 +37,10 @@ Org-mode +does need+ could do with some configuration to accomodate LaTeX previe
 
 ** Better defaults
 #+BEGIN_SRC emacs-lisp
-(defvar org-babel-default-header-args '((:results . "output")
-					    (:noweb . "yes")))
+(defvar org-babel-default-header-args '((:results . "output") (:noweb . "yes")))
 
-(defvar org-babel-default-header-args:jupyter '((:results . "output")
-						    (:kernel . "python3")
-						    (:session . "hello")
-                                                (:async . "yes")))
+(defvar org-babel-default-header-args:jupyter '((:results . "output") (:kernel . "python3") (:session . "hello") (:async . "yes")))
+
 (defun org-enter-maybe-execute ()
   (interactive)
   (if (org-in-src-block-p)
@@ -59,7 +56,6 @@ Org-mode +does need+ could do with some configuration to accomodate LaTeX previe
    ;; (jupyter . t)
    (shell . t)))
 #+END_SRC
-
 
 This makes it convenient to use ~Jupyter~ src blocks within Emacs. Note that =emacs-jupyter= needs to be set up for this. I've also set a custom size for the LaTeX (and image, e.g plot) previews here.
 #+BEGIN_SRC emacs-lisp
@@ -119,6 +115,9 @@ Whoops, did i forget images? Here ya go:
 
 [[/emacs-org/Jupyter.png]]
 
+[[/emacs-org/latex-preview2.png]]
+
 [[/emacs-org/latex-preview.png]]
+
 Ok then, I'll be back with some Emacs content in the near future. Stay tuned!
 
